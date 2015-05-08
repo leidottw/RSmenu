@@ -1,0 +1,25 @@
+{
+  "name": "menu",
+  "main": "menu.js",
+  "version": "0.0.0",
+  "authors": [
+    "leidottw <leidottw@gmail.com>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-mousewheel": ">=0.0.0",
+    "jquery.jscrollpane": ">=0.0.0",
+    "jquery-ui": ">=0.0.0",
+    "jquery": ">=0.0.0"
+  }
+}

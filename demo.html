@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link rel="stylesheet" href="menu.css">
+</head>
+<body>
+    <h1>Demo</h1>
+    <div class="rc">contextmenu</div>
+    <div class="lc">left click</div>
+    <select name="demoSelect" id="demoSelect">
+        <option value="a1">a1</option>
+        <option value="a2">a2</option>
+        <option value="a3">a3</option>
+        <option value="a4">a4</option>
+        <option value="a5">a5</option>
+        <option value="a6">a6</option>
+        <option value="a7">a7</option>
+        <option value="a8">a8</option>
+        <option value="a9">a9</option>
+        <option value="a10">a10</option>
+        <option value="a11">a11</option>
+        <option value="a12">a12</option>
+    </select>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="bower_components/jquery.jscrollpane/jquery.jscrollpane.js"></script>
+    <script src="menu.js"></script>
+    <script>
+    $('.rc').RSmenu({
+        menu: [{
+            val: 'level1-itme1',
+            text: 'level1-itme1',
+            submenu: [{
+                val: 'level2-item1',
+                text: 'level2-item1'
+            }]
+        }, {
+            val: 'level1-item2',
+            text: 'level1-item2',
+        }, {
+            val: 'level1-item3',
+            text: 'level1-item3'
+        }, {
+            val: 'level1-item4',
+            text: 'level1-item4',
+            submenu: [{
+                val: 'level2-item1',
+                text: 'level2-item1'
+            }, {
+                val: 'level2-item2',
+                text: 'level2-item2',
+                hide: true
+            }, {
+                val: 'level2-item3',
+                text: 'level2-item3',
+                submenu: [{
+                    val: 'level3-item1',
+                    text: 'level3-item2'
+                }]
+            }]
+        }]
+    });
+    </script>
+</body>
+</html>
