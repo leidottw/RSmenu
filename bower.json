@@ -1,14 +1,14 @@
 {
-  "name": "menu",
-  "main": "menu.js",
-  "version": "0.0.0",
+  "name": "RSmenu",
+  "main": "RSmenu.js",
+  "version": "1.0.0",
   "authors": [
     "leidottw <leidottw@gmail.com>"
   ],
   "moduleType": [
-    "node"
+    "globals"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -19,7 +19,6 @@
   "dependencies": {
     "jquery-mousewheel": ">=0.0.0",
     "jquery.jscrollpane": ">=0.0.0",
-    "jquery-ui": ">=0.0.0",
     "jquery": ">=0.0.0"
   }
 }

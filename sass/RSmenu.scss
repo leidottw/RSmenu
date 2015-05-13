@@ -1,0 +1,51 @@
+#RSMenu {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+
+    &.debug {
+        background: rgba(255,255,0,0.1);
+    }
+
+    .menu {
+        position: fixed;
+        border: 1px solid #b0b0b0;
+        padding-top: 16px;
+        padding-bottom: 28px;
+        background-color: #ffffff;
+
+        .item {
+            cursor: pointer;
+            min-width: 154px;
+            max-width: 204px;
+            min-height: 28px;
+            line-height: 28px;
+            padding: 0px 28px;
+
+            &.parentMenu:after {
+                content: '>';
+                float: right;
+                margin-right: -10px;
+            }
+
+            &.hover {
+                background-color: #defefe;
+            }
+
+            &.active {
+                font-weight: 700;
+            }
+        }
+
+        .divider {
+            margin: 8px 0px;
+            border-bottom: 1px solid #b0b0b0;
+        }
+
+        &.submenu {
+            margin-top: -16px;
+        }
+    }
+}
