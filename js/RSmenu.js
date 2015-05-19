@@ -101,7 +101,11 @@
 
             // render item
             menu.data.forEach(function(item) {
-                if(item.hide) return;
+                if(typeof item.hide === 'function') {
+                    if(item.hide()) return;
+                } else if(typeof item.hide === 'boolean') {
+                    if(item.hide) return;
+                }
 
                 if(item.divider) {
                     var $itemInstance = $('<div class="divider">').appendTo($menuInstance);
