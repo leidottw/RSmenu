@@ -30,6 +30,10 @@
                 margin-right: -10px;
             }
 
+            &.isTitle {
+                cursor: auto;
+            }
+
             &.hover {
                 background-color: #defefe;
             }

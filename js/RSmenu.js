@@ -116,6 +116,11 @@
                         $itemInstance.addClass(item.class);
                     }
 
+                    if(item.isTitle) {
+                        $itemInstance.data('isTitle', true);
+                        $itemInstance.addClass('isTitle');
+                    }
+
                     // 設定menu階層辨識參數
                     if(parent) {
                         $itemInstance[0].dataset.level = parent.data('level') + 1;
@@ -140,7 +145,9 @@
                         }
 
                         // 光標
-                        $itemInstance.addClass('hover');
+                        if(!$itemInstance.data('isTitle')) {
+                            $itemInstance.addClass('hover');
+                        }
 
                         // 祖先光標
                         that.$el.find('.item').removeClass('active');
