@@ -57,6 +57,10 @@
                 that.$el.addClass('debug');
             }
 
+            if(menu.options.class) {
+                that.$el.addClass(menu.options.class);
+            }
+
             that.$el.on('click contextmenu', function(e) {
                 e.preventDefault();
                 that.$el.remove();
@@ -246,6 +250,10 @@
             that.$dropdownHead.css('width', menu.options.width);
         }
 
+        if(menu.options.headClass) {
+            that.$dropdownHead.addClass(menu.options.headClass);
+        }
+
         $(that).after(that.$dropdownHead);
 
         that.$dropdownHead.on('click', function() {
@@ -260,6 +268,10 @@
 
             if(menu.options.debug) {
                 that.$el.addClass('debug');
+            }
+
+            if(menu.options.class) {
+                that.$el.addClass(menu.options.class);
             }
 
             that.$el.on('click contextmenu', function(e) {
