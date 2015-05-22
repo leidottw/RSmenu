@@ -245,16 +245,16 @@
         }
 
         // set dropdown default value
-        that.$dropdownHead = $('<div class="RSdropdownHead">').html(menu.data[0].text).attr('value', menu.data[0].val)/*.attr('title', menu.data[0].text)*/;
+        that.$dropdownHead = $('<div class="RSdropdownHead">').html(menu.data[0].headText || menu.data[0].text).attr('value', menu.data[0].val)/*.attr('title', menu.data[0].text)*/;
         iterator(menu, function(item) {
             if(item.isDefault) {
                 if(typeof item.isDefault === 'function') {
                     if(item.isDefault()) {
-                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.text).attr('value', item.val)/*.attr('title', item.text)*/;
+                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.headText || item.text).attr('value', item.val)/*.attr('title', item.text)*/;
                     }
                 } else if(typeof item.isDefault === 'boolean') {
                     if(item.isDefault) {
-                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.text).attr('value', item.val)/*.attr('title', item.text)*/;
+                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.headText || item.text).attr('value', item.val)/*.attr('title', item.text)*/;
                     }
                 }
             }
@@ -392,7 +392,7 @@
                         // 非title && 非父節點
                         if(!item.isTitle && !item.menu) {
                             $(that).trigger('change', item.val);
-                            that.$dropdownHead.html(item.text)/*.attr('title', item.text)*/.attr('value', item.val);
+                            that.$dropdownHead.html(item.headText || item.text)/*.attr('title', item.text)*/.attr('value', item.val);
                         }
 
                         // 若有handler則執行
