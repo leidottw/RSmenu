@@ -81,11 +81,11 @@
 
             // 設定menu階層辨識參數
             if(parent) {
-                $menuInstance[0].dataset.level = parent.data('level') + 1;
+                $menuInstance.data('level', parent.data('level') + 1);
                 $menuInstance.data('parent', parent);
                 $menuInstance.addClass('submenu');
             } else {
-                $menuInstance[0].dataset.level = 0;
+                $menuInstance.data('level', 0);
             }
 
             // render item
@@ -112,10 +112,10 @@
 
                     // 設定menu階層辨識參數
                     if(parent) {
-                        $itemInstance[0].dataset.level = parent.data('level') + 1;
+                        $itemInstance.data('level', parent.data('level') + 1);
                         $itemInstance.data('parent', parent);
                     } else {
-                        $itemInstance[0].dataset.level = 0;
+                        $itemInstance.data('level', 0);
                     }
 
                     // 若有子menu, 埋子menu設定參數
@@ -130,7 +130,7 @@
                         if(item.menu) {
                             renderPopUpMenu($itemInstance.data('menu'), $itemInstance);
                         } else {
-                            that.trigger('createMenu', $itemInstance[0].dataset.level);
+                            that.trigger('createMenu', $itemInstance.data('level'));
                         }
 
                         // 光標
@@ -296,11 +296,11 @@
 
             // 設定menu階層辨識參數
             if(parent) {
-                $menuInstance[0].dataset.level = parent.data('level') + 1;
+                $menuInstance.data('level', parent.data('level') + 1);
                 $menuInstance.data('parent', parent);
                 $menuInstance.addClass('submenu');
             } else {
-                $menuInstance[0].dataset.level = 0;
+                $menuInstance.data('level', 0);
             }
 
             // render item
@@ -327,10 +327,10 @@
 
                     // 設定menu階層辨識參數
                     if(parent) {
-                        $itemInstance[0].dataset.level = parent.data('level') + 1;
+                        $itemInstance.data('level', parent.data('level') + 1);
                         $itemInstance.data('parent', parent);
                     } else {
-                        $itemInstance[0].dataset.level = 0;
+                        $itemInstance.data('level', 0);
                     }
 
                     // 若有子menu, 埋子menu設定參數
@@ -370,7 +370,7 @@
                         if(item.menu) {
                             renderDropdown($itemInstance.data('menu'), $itemInstance);
                         } else {
-                            that.trigger('createMenu', $itemInstance[0].dataset.level);
+                            that.trigger('createMenu', $itemInstance.data('level'));
                         }
 
                         // 光標
