@@ -57,6 +57,10 @@
                 that.$el.addClass('debug');
             }
 
+            if(menu.options.class) {
+                that.$el.addClass(menu.options.class);
+            }
+
             that.$el.on('click contextmenu', function(e) {
                 e.preventDefault();
                 that.$el.remove();
@@ -77,11 +81,11 @@
 
             // 設定menu階層辨識參數
             if(parent) {
-                $menuInstance[0].dataset.level = parent.data('level') + 1;
+                $menuInstance.data('level', parent.data('level') + 1);
                 $menuInstance.data('parent', parent);
                 $menuInstance.addClass('submenu');
             } else {
-                $menuInstance[0].dataset.level = 0;
+                $menuInstance.data('level', 0);
             }
 
             // render item
@@ -108,10 +112,10 @@
 
                     // 設定menu階層辨識參數
                     if(parent) {
-                        $itemInstance[0].dataset.level = parent.data('level') + 1;
+                        $itemInstance.data('level', parent.data('level') + 1);
                         $itemInstance.data('parent', parent);
                     } else {
-                        $itemInstance[0].dataset.level = 0;
+                        $itemInstance.data('level', 0);
                     }
 
                     // 若有子menu, 埋子menu設定參數
@@ -126,7 +130,7 @@
                         if(item.menu) {
                             renderPopUpMenu($itemInstance.data('menu'), $itemInstance);
                         } else {
-                            that.trigger('createMenu', $itemInstance[0].dataset.level);
+                            that.trigger('createMenu', $itemInstance.data('level'));
                         }
 
                         // 光標
@@ -240,10 +244,28 @@
             });
         }
 
+        // set dropdown default value
         that.$dropdownHead = $('<div class="RSdropdownHead">').html(menu.data[0].text).attr('value', menu.data[0].val)/*.attr('title', menu.data[0].text)*/;
+        iterator(menu, function(item) {
+            if(item.isDefault) {
+                if(typeof item.isDefault === 'function') {
+                    if(item.isDefault()) {
+                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.text).attr('value', item.val)/*.attr('title', item.text)*/;
+                    }
+                } else if(typeof item.isDefault === 'boolean') {
+                    if(item.isDefault) {
+                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.text).attr('value', item.val)/*.attr('title', item.text)*/;
+                    }
+                }
+            }
+        });
 
         if(menu.options.width) {
             that.$dropdownHead.css('width', menu.options.width);
+        }
+
+        if(menu.options.headClass) {
+            that.$dropdownHead.addClass(menu.options.headClass);
         }
 
         $(that).after(that.$dropdownHead);
@@ -260,6 +282,10 @@
 
             if(menu.options.debug) {
                 that.$el.addClass('debug');
+            }
+
+            if(menu.options.class) {
+                that.$el.addClass(menu.options.class);
             }
 
             that.$el.on('click contextmenu', function(e) {
@@ -284,11 +310,11 @@
 
             // 設定menu階層辨識參數
             if(parent) {
-                $menuInstance[0].dataset.level = parent.data('level') + 1;
+                $menuInstance.data('level', parent.data('level') + 1);
                 $menuInstance.data('parent', parent);
                 $menuInstance.addClass('submenu');
             } else {
-                $menuInstance[0].dataset.level = 0;
+                $menuInstance.data('level', 0);
             }
 
             // render item
@@ -315,10 +341,10 @@
 
                     // 設定menu階層辨識參數
                     if(parent) {
-                        $itemInstance[0].dataset.level = parent.data('level') + 1;
+                        $itemInstance.data('level', parent.data('level') + 1);
                         $itemInstance.data('parent', parent);
                     } else {
-                        $itemInstance[0].dataset.level = 0;
+                        $itemInstance.data('level', 0);
                     }
 
                     // 若有子menu, 埋子menu設定參數
@@ -332,24 +358,11 @@
                     if(that.$dropdownHead.attr('value') === item.val) {
                         $itemInstance.addClass('selected');
                     } else if(item.menu) {
-                        var searchArray = [item];
-                        
-                        while(searchArray.length) {
-                            search(searchArray[0], that.$dropdownHead.attr('value'));
-                            searchArray.shift();
-                        }
-
-                        function search(item, val) {
-                            if(item.menu) {
-                                $.each(item.menu.data, function(key, item) {
-                                    searchArray.push(item);
-                                });
-                            } else {
-                                if(item.val === val) {
-                                    $itemInstance.addClass('parentOfSelected');
-                                }
+                        iterator(item.menu, function(item) {
+                            if(item.val === that.$dropdownHead.attr('value')) {
+                                $itemInstance.addClass('parentOfSelected');
                             }
-                        }
+                        });
                     }
 
                     // 滑鼠事件
@@ -358,7 +371,7 @@
                         if(item.menu) {
                             renderDropdown($itemInstance.data('menu'), $itemInstance);
                         } else {
-                            that.trigger('createMenu', $itemInstance[0].dataset.level);
+                            that.trigger('createMenu', $itemInstance.data('level'));
                         }
 
                         // 光標
@@ -458,6 +471,21 @@
         });
 
         return this;
+    }
+
+    function iterator(menu, callback) {
+        var searchArray = [menu];
+
+        while(searchArray.length) {
+            var itemList = searchArray.shift();
+            $.each(itemList.data, function(itemKey, item) {
+                if(item.menu) {
+                    searchArray.push(item.menu);
+                } else {
+                    callback(item);
+                }
+            });
+        }
     }
 
 })(jQuery);
