@@ -245,16 +245,16 @@
         }
 
         // set dropdown default value
-        that.$dropdownHead = $('<div class="RSdropdownHead">').html(menu.data[0].headText || menu.data[0].text).attr('value', menu.data[0].val)/*.attr('title', menu.data[0].text)*/;
+        that.$dropdownHead = $('<div class="RSdropdownHead">').html(menu.data[0].headText || menu.data[0].text).attr('value', menu.data[0].val).attr('title', menu.data[0].title);
         iterator(menu, function(item) {
             if(item.isDefault) {
                 if(typeof item.isDefault === 'function') {
                     if(item.isDefault()) {
-                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.headText || item.text).attr('value', item.val)/*.attr('title', item.text)*/;
+                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.headText || item.text).attr('value', item.val).attr('title', item.title);
                     }
                 } else if(typeof item.isDefault === 'boolean') {
                     if(item.isDefault) {
-                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.headText || item.text).attr('value', item.val)/*.attr('title', item.text)*/;
+                        that.$dropdownHead = $('<div class="RSdropdownHead">').html(item.headText || item.text).attr('value', item.val).attr('title', item.title);
                     }
                 }
             }
@@ -328,7 +328,7 @@
                 if(item.divider) {
                     var $itemInstance = $('<div class="divider">').appendTo($menuInstance);
                 } else {
-                    var $itemInstance = $('<div class="item">').html(item.text)/*.attr('title', item.text)*/.appendTo($menuInstance);
+                    var $itemInstance = $('<div class="item">').html(item.text).appendTo($menuInstance);
 
                     if(item.class) {
                         $itemInstance.addClass(item.class);
@@ -392,7 +392,7 @@
                         // 非title && 非父節點
                         if(!item.isTitle && !item.menu) {
                             $(that).trigger('change', item.val);
-                            that.$dropdownHead.html(item.headText || item.text)/*.attr('title', item.text)*/.attr('value', item.val);
+                            that.$dropdownHead.html(item.headText || item.text).attr('title', item.title).attr('value', item.val);
                         }
 
                         // 若有handler則執行
