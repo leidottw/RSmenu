@@ -183,25 +183,41 @@
                 }
             } else {
                 // root menu定位
-                if(that.mouseX + $menuInstance.outerWidth() <= $(window).width()) {
-                    $menuInstance.css('left', that.mouseX);
-                } else {
-                    $menuInstance.css('left', that.mouseX - $menuInstance.outerWidth());
-                }
+                if(menu.options.position) {
+                    $menuInstance.position({
+                        of: $(that),
+                        my: menu.options.position.my,
+                        at: menu.options.position.at,
+                        collision: menu.options.position.collision
+                    });
 
-                if(that.mouseY + $menuInstance.outerHeight() <= $(window).height()) {
-                    $menuInstance.css('top', that.mouseY);
-                } else {
-                    $menuInstance.css('bottom', 0);
-                    if($menuInstance.outerHeight() > $(window).height()) {
-                        $menuInstance.css({
-                            'top': 0,
-                            'bottom': '',
-                            'margin-top': 0
-                        });
-                        $menuInstance.css('height', $(window).height()).jScrollPane({
+                    var currentTop = $menuInstance.position().top;
+                    if(currentTop + $menuInstance.outerHeight() > $(window).height()) {
+                        $menuInstance.css('height', $(window).height() - currentTop).jScrollPane({
                             autoReinitialise: true
                         });
+                    }
+                } else {
+                    if(that.mouseX + $menuInstance.outerWidth() <= $(window).width()) {
+                        $menuInstance.css('left', that.mouseX);
+                    } else {
+                        $menuInstance.css('left', that.mouseX - $menuInstance.outerWidth());
+                    }
+
+                    if(that.mouseY + $menuInstance.outerHeight() <= $(window).height()) {
+                        $menuInstance.css('top', that.mouseY);
+                    } else {
+                        $menuInstance.css('bottom', 0);
+                        if($menuInstance.outerHeight() > $(window).height()) {
+                            $menuInstance.css({
+                                'top': 0,
+                                'bottom': '',
+                                'margin-top': 0
+                            });
+                            $menuInstance.css('height', $(window).height()).jScrollPane({
+                                autoReinitialise: true
+                            });
+                        }
                     }
                 }
             }
