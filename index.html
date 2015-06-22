@@ -78,6 +78,7 @@
             menu: {
                 data: [{
                     text: '發送電子郵件',
+                    val: 'shareViaEmail',
                     handler: function() {
                         console.log('發送電子郵件');
                     }
@@ -148,7 +149,12 @@
                     }
                 }]
             }
-        }]
+        }],
+        options: {
+            currentState: function() {
+                return 'shareViaEmail';
+            }
+        }
     });
 
     $('.lc').RSmenu({

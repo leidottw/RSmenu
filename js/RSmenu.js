@@ -74,7 +74,7 @@
             renderPopUpMenu(menu);
         }
 
-        function renderPopUpMenu(menu, parent) {
+        function renderPopUpMenu(menu2, parent) {
             that.trigger('createMenu', parent && parent.data('level') || 0);
 
             var $menuInstance = $('<div class="menu">').appendTo(that.$el);
@@ -89,7 +89,7 @@
             }
 
             // render item
-            menu.data.forEach(function(item) {
+            menu2.data.forEach(function(item) {
                 if(typeof item.hide === 'function') {
                     if(item.hide()) return;
                 } else if(typeof item.hide === 'boolean') {
@@ -122,6 +122,20 @@
                     if(item.menu) {
                         $itemInstance.addClass('parentMenu');
                         $itemInstance.data('menu', item.menu);
+                    }
+
+                    // 已選擇項目標記
+                    // 已選擇項目的parents標記
+                    if(menu.options.currentState) {
+                        if(menu.options.currentState.call() === item.val) {
+                            $itemInstance.addClass('selected');
+                        } else if(item.menu) {
+                            iterator(item.menu, function(item) {
+                                if(item.val === menu.options.currentState.call()) {
+                                    $itemInstance.addClass('parentOfSelected');
+                                }
+                            });
+                        }
                     }
 
                     // 滑鼠事件
@@ -183,12 +197,12 @@
                 }
             } else {
                 // root menu定位
-                if(menu.options.position) {
+                if(menu2.options.position) {
                     $menuInstance.position({
                         of: $(that),
-                        my: menu.options.position.my,
-                        at: menu.options.position.at,
-                        collision: menu.options.position.collision
+                        my: menu2.options.position.my,
+                        at: menu2.options.position.at,
+                        collision: menu2.options.position.collision
                     });
 
                     var currentTop = $menuInstance.position().top;
@@ -319,7 +333,7 @@
             renderDropdown(menu);
         });
 
-        function renderDropdown(menu, parent) {
+        function renderDropdown(menu2, parent) {
             that.trigger('createMenu', parent && parent.data('level') || 0);
 
             var $menuInstance = $('<div class="menu">').appendTo(that.$el);
@@ -334,7 +348,7 @@
             }
 
             // render item
-            menu.data.forEach(function(item) {
+            menu2.data.forEach(function(item) {
                 if(typeof item.hide === 'function') {
                     if(item.hide()) return;
                 } else if(typeof item.hide === 'boolean') {
@@ -489,8 +503,8 @@
         return this;
     }
 
-    function iterator(menu, callback) {
-        var searchArray = [menu];
+    function iterator(menu2, callback) {
+        var searchArray = [menu2];
 
         while(searchArray.length) {
             var itemList = searchArray.shift();
