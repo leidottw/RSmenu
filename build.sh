@@ -7,7 +7,7 @@ else
 fi
 
 # compile js & scss
-Uglifyjs2 js/RSmenu.js -o dist/RSmenu.min.js
+uglifyjs js/RSmenu.js -o dist/RSmenu.min.js
 compass compile -e production --force
 
 # rename dist/*.css to dist/*.min.css

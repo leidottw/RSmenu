@@ -122,6 +122,9 @@
                     if(item.menu) {
                         $itemInstance.addClass('parentMenu');
                         $itemInstance.data('menu', item.menu);
+                        $itemInstance.on('click', function(e) {
+                            e.stopPropagation();
+                        });
                     }
 
                     // 已選擇項目標記
@@ -381,6 +384,9 @@
                     if(item.menu) {
                         $itemInstance.addClass('parentMenu');
                         $itemInstance.data('menu', item.menu);
+                        $itemInstance.on('click', function(e) {
+                            e.stopPropagation();
+                        });
                     }
 
                     // 已選擇項目標記
