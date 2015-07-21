@@ -48,7 +48,7 @@
         function render() {
             // execute on show
             if(menu.options.onShow) {
-                menu.options.onShow();
+                menu.options.onShow.call(that);
             }
 
             that.$el = $('<div id="RSmenu">').appendTo('body');
@@ -67,7 +67,7 @@
 
                 // execute on show
                 if(menu.options.onClose) {
-                    menu.options.onClose();
+                    menu.options.onClose.call(that);
                 }
             });
 
@@ -130,11 +130,11 @@
                     // 已選擇項目標記
                     // 已選擇項目的parents標記
                     if(menu.options.currentState) {
-                        if(menu.options.currentState.call() === item.val) {
+                        if(menu.options.currentState.call(that) === item.val) {
                             $itemInstance.addClass('selected');
                         } else if(item.menu) {
                             iterator(item.menu, function(item) {
-                                if(item.val === menu.options.currentState.call()) {
+                                if(item.val === menu.options.currentState.call(that)) {
                                     $itemInstance.addClass('parentOfSelected');
                                 }
                             });
@@ -306,7 +306,7 @@
         that.$dropdownHead.on('click', function() {
             // execute on show
             if(menu.options.onShow) {
-                menu.options.onShow();
+                menu.options.onShow.call(that);
             }
 
             that.$el = $('<div id="RSdropdown">').appendTo('body');
@@ -329,7 +329,7 @@
 
                 // execute on show
                 if(menu.options.onClose) {
-                    menu.options.onClose();
+                    menu.options.onClose.call(that);
                 }
             });
 
