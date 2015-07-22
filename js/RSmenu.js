@@ -129,12 +129,12 @@
 
                     // 已選擇項目標記
                     // 已選擇項目的parents標記
-                    if(menu.options.currentState) {
-                        if(menu.options.currentState.call(that) === item.val) {
+                    if(menu2.options.currentState) {
+                        if(menu2.options.currentState.call(that) === item.val) {
                             $itemInstance.addClass('selected');
                         } else if(item.menu) {
                             iterator(item.menu, function(item) {
-                                if(item.val === menu.options.currentState.call(that)) {
+                                if(item.val === menu2.options.currentState.call(that)) {
                                     $itemInstance.addClass('parentOfSelected');
                                 }
                             });
