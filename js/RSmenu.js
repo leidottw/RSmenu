@@ -88,89 +88,93 @@
                 $menuInstance.data('level', 0);
             }
 
-            // render item
-            menu2.data.forEach(function(item) {
-                if(typeof item.hide === 'function') {
-                    if(item.hide()) return;
-                } else if(typeof item.hide === 'boolean') {
-                    if(item.hide) return;
-                }
-
-                if(item.divider) {
-                    var $itemInstance = $('<div class="divider">').appendTo($menuInstance);
-                } else {
-                    var $itemInstance = $('<div class="item">').html(item.text).appendTo($menuInstance);
-
-                    if(item.class) {
-                        $itemInstance.addClass(item.class);
+            if(menu2.options && menu2.options.custom) {
+                menu2.options.custom($menuInstance, parent);
+            } else {
+                // render item
+                menu2.data.forEach(function(item) {
+                    if(typeof item.hide === 'function') {
+                        if(item.hide()) return;
+                    } else if(typeof item.hide === 'boolean') {
+                        if(item.hide) return;
                     }
 
-                    if(item.isTitle) {
-                        $itemInstance.data('isTitle', true);
-                        $itemInstance.addClass('isTitle');
-                    }
-
-                    // 設定menu階層辨識參數
-                    if(parent) {
-                        $itemInstance.data('level', parent.data('level') + 1);
-                        $itemInstance.data('parent', parent);
+                    if(item.divider) {
+                        var $itemInstance = $('<div class="divider">').appendTo($menuInstance);
                     } else {
-                        $itemInstance.data('level', 0);
-                    }
+                        var $itemInstance = $('<div class="item">').html(item.text).appendTo($menuInstance);
 
-                    // 若有子menu, 埋子menu設定參數
-                    if(item.menu) {
-                        $itemInstance.addClass('parentMenu');
-                        $itemInstance.data('menu', item.menu);
-                        $itemInstance.on('click', function(e) {
-                            e.stopPropagation();
-                        });
-                    }
+                        if(item.class) {
+                            $itemInstance.addClass(item.class);
+                        }
 
-                    // 已選擇項目標記
-                    // 已選擇項目的parents標記
-                    if(menu2.options && menu2.options.currentState) {
-                        if(menu2.options.currentState.call(that) === item.val) {
-                            $itemInstance.addClass('selected');
-                        } else if(item.menu) {
-                            iterator(item.menu, function(item) {
-                                if(item.val === menu2.options.currentState.call(that)) {
-                                    $itemInstance.addClass('parentOfSelected');
-                                }
+                        if(item.isTitle) {
+                            $itemInstance.data('isTitle', true);
+                            $itemInstance.addClass('isTitle');
+                        }
+
+                        // 設定menu階層辨識參數
+                        if(parent) {
+                            $itemInstance.data('level', parent.data('level') + 1);
+                            $itemInstance.data('parent', parent);
+                        } else {
+                            $itemInstance.data('level', 0);
+                        }
+
+                        // 若有子menu, 埋子menu設定參數
+                        if(item.menu) {
+                            $itemInstance.addClass('parentMenu');
+                            $itemInstance.data('menu', item.menu);
+                            $itemInstance.on('click', function(e) {
+                                e.stopPropagation();
                             });
                         }
+
+                        // 已選擇項目標記
+                        // 已選擇項目的parents標記
+                        if(menu2.options && menu2.options.currentState) {
+                            if(menu2.options.currentState.call(that) === item.val) {
+                                $itemInstance.addClass('selected');
+                            } else if(item.menu) {
+                                iterator(item.menu, function(item) {
+                                    if(item.val === menu2.options.currentState.call(that)) {
+                                        $itemInstance.addClass('parentOfSelected');
+                                    }
+                                });
+                            }
+                        }
+
+                        // 滑鼠事件
+                        $itemInstance.on('mouseenter', function(e) {
+                            // 若為父節點則render subment
+                            if(item.menu) {
+                                renderPopUpMenu($itemInstance.data('menu'), $itemInstance);
+                            } else {
+                                that.trigger('createMenu', $itemInstance.data('level'));
+                            }
+
+                            // 光標
+                            if(!$itemInstance.data('isTitle')) {
+                                $itemInstance.addClass('hover');
+                            }
+
+                            // 祖先光標
+                            that.$el.find('.item').removeClass('active');
+                            var tmp = parent;
+                            while(tmp) {
+                                tmp.addClass('active');
+                                tmp = tmp.data('parent');
+                            }
+                        }).on('mouseleave', function(e) {
+                            $itemInstance.removeClass('hover');
+                        }).on('click', function(e) {
+                            if(item.handler) {
+                                item.handler();
+                            }
+                        });
                     }
-
-                    // 滑鼠事件
-                    $itemInstance.on('mouseenter', function(e) {
-                        // 若為父節點則render subment
-                        if(item.menu) {
-                            renderPopUpMenu($itemInstance.data('menu'), $itemInstance);
-                        } else {
-                            that.trigger('createMenu', $itemInstance.data('level'));
-                        }
-
-                        // 光標
-                        if(!$itemInstance.data('isTitle')) {
-                            $itemInstance.addClass('hover');
-                        }
-
-                        // 祖先光標
-                        that.$el.find('.item').removeClass('active');
-                        var tmp = parent;
-                        while(tmp) {
-                            tmp.addClass('active');
-                            tmp = tmp.data('parent');
-                        }
-                    }).on('mouseleave', function(e) {
-                        $itemInstance.removeClass('hover');
-                    }).on('click', function(e) {
-                        if(item.handler) {
-                            item.handler();
-                        }
-                    });
-                }
-            });
+                });
+            }
 
             // menu定位
             if(parent) {
