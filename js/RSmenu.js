@@ -57,8 +57,8 @@
                 that.$el.addClass('debug');
             }
 
-            if(menu.options.class) {
-                that.$el.addClass(menu.options.class);
+            if(menu.options['class']) {
+                that.$el.addClass(menu.options['class']);
             }
 
             that.$el.on('click contextmenu', function(e) {
@@ -321,8 +321,8 @@
                 that.$el.addClass('debug');
             }
 
-            if(menu.options.class) {
-                that.$el.addClass(menu.options.class);
+            if(menu.options['class']) {
+                that.$el.addClass(menu.options['class']);
             }
 
             that.$el.on('click contextmenu', function(e) {
