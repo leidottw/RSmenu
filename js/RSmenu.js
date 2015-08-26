@@ -104,8 +104,8 @@
                     } else {
                         var $itemInstance = $('<div class="item">').html(item.text).appendTo($menuInstance);
 
-                        if(item.class) {
-                            $itemInstance.addClass(item.class);
+                        if(item['class']) {
+                            $itemInstance.addClass(item['class']);
                         }
 
                         if(item.isTitle) {
@@ -367,8 +367,8 @@
                 } else {
                     var $itemInstance = $('<div class="item">').html(item.text).appendTo($menuInstance);
 
-                    if(item.class) {
-                        $itemInstance.addClass(item.class);
+                    if(item['class']) {
+                        $itemInstance.addClass(item['class']);
                     }
 
                     if(item.isTitle) {
