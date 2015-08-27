@@ -474,7 +474,11 @@
                 var offset = that.$dropdownHead.offset();
 
                 $menuInstance.css('left', offset.left);
-                $menuInstance.css('width', that.$dropdownHead.outerWidth());
+                if(menu.options.extend) {
+                    $menuInstance.css('min-width', that.$dropdownHead.outerWidth());
+                } else {
+                    $menuInstance.css('width', that.$dropdownHead.outerWidth());
+                }
 
                 if(offset.top + that.$dropdownHead.outerHeight() + $menuInstance.outerHeight() <= $(window).height()) {
                     $menuInstance.css('top', offset.top + that.$dropdownHead.outerHeight());

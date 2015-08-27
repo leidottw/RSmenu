@@ -1,6 +1,6 @@
 {
   "name": "rsmenu",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "[Demo](http://leidottw.github.io/RSmenu/)",
   "main": "dist/RSmenu.min.js",
   "scripts": {
