@@ -20,28 +20,34 @@
             menu.options = {};
         }
 
+        var handler = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            that.mouseX = e.clientX;
+            that.mouseY = e.clientY;
+
+            render();
+        }
+
         // set trigger event
         switch(menu.options.active) {
             case 'leftClick':
-                $(this).on('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    that.mouseX = e.clientX;
-                    that.mouseY = e.clientY;
-
-                    render();
+                $(this).on('click', handler);
+                $(this).data('rsmenu', {
+                    destroy: function() {
+                        $(this).off('click', handler);
+                        $(this).removeData('rsmenu');
+                    }.bind(this)
                 });
                 break;
             default:
-                $(this).on('contextmenu', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    that.mouseX = e.clientX;
-                    that.mouseY = e.clientY;
-
-                    render();
+                $(this).on('contextmenu', handler);
+                $(this).data('rsmenu', {
+                    destroy: function() {
+                        $(this).off('click', handler);
+                        $(this).removeData('rsmenu');
+                    }.bind(this)
                 });
         }
 
