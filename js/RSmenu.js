@@ -139,11 +139,21 @@
                         // 已選擇項目標記
                         // 已選擇項目的parents標記
                         if(menu2.options && menu2.options.currentState) {
-                            if(menu2.options.currentState.call(that) === item.val) {
+                            var currentState = menu2.options.currentState.call(that);
+
+                            if(_.isArray(currentState) && currentState.indexOf(item.val) !== -1) {
                                 $itemInstance.addClass('selected');
-                            } else if(item.menu) {
+                            } else if(currentState === item.val) {
+                                $itemInstance.addClass('selected');
+                            }
+
+                            if(item.menu) {
                                 iterator(item.menu, function(item) {
-                                    if(item.val === menu2.options.currentState.call(that)) {
+                                    var currentState = menu2.options.currentState.call(that);
+
+                                    if(_.isArray(currentState) && currentState.indexOf(item.val) !== -1) {
+                                        $itemInstance.addClass('parentOfSelected');
+                                    } else if(currentState === item.val) {
                                         $itemInstance.addClass('parentOfSelected');
                                     }
                                 });
