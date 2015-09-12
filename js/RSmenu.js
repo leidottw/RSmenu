@@ -52,6 +52,14 @@
         }
 
         function render() {
+            if(menu.options.hide) {
+                if(typeof menu.options.hide === 'function') {
+                    if(menu.options.hide.call(that)) return;
+                } else if(typeof menu.options.hide === 'boolean') {
+                    if(menu.options.hide) return;
+                }
+            }
+
             // execute on show
             if(menu.options.onShow) {
                 menu.options.onShow.call(that);
