@@ -454,17 +454,16 @@
                         $itemInstance.removeClass('hover');
                     }).on('click', function(e) {
                         // 非title && 非父節點
-                        if(!item.isTitle && !item.menu) {
-                            // 若有handler則執行
-                            if(item.handler) {
-                                item.handler(function() {
-                                    $(that).trigger('change', item.val);
-                                    that.$dropdownHead.html(item.headText || item.text).attr('title', item.title).attr('value', item.val);
-                                });
-                            } else {
+                        if(!item.isTitle && !item.menu && !item.preventUpdateHead) {
+                            $(that).trigger('change', item.val);
+                            that.$dropdownHead.html(item.headText || item.text).attr('title', item.title).attr('value', item.val);
+                        }
+
+                        if(item.handler) {
+                            item.handler(function() {
                                 $(that).trigger('change', item.val);
                                 that.$dropdownHead.html(item.headText || item.text).attr('title', item.title).attr('value', item.val);
-                            }
+                            });
                         }
                     });
                 }
