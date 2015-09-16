@@ -30,7 +30,6 @@
             min-height: 28px;
             line-height: 28px;
             padding: 0px 28px;
-            word-break: break-all;
 
             &.parentMenu:after {
                 content: '>';
@@ -47,6 +46,7 @@
             }
 
             &.active {
+                background-color: #defefe;
                 font-weight: 700;
             }
 
@@ -55,7 +55,7 @@
             }
 
             &:last-child {
-                margin-bottom: 28px;
+                margin-bottom: 16px;
             }
         }
 
@@ -72,11 +72,9 @@
 
 .RSdropdownHead {
     cursor: pointer;
-    max-width: 260px;
     height: 20px;
     line-height: 20px;
     padding: 0px 22px;
-    word-break: break-all;
     position: relative;
     font-size: 12px;
     border: 1px solid #b0b0b0;
@@ -116,11 +114,9 @@
 
         .item {
             cursor: pointer;
-            max-width: 260px;
             min-height: 20px;
             line-height: 20px;
             padding: 0px 22px;
-            word-break: break-all;
 
             &.parentMenu:after {
                 content: '>';
@@ -137,6 +133,7 @@
             }
 
             &.active {
+                background-color: #defefe;
                 font-weight: 700;
             }
         }
