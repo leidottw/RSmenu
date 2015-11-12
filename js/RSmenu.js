@@ -331,7 +331,9 @@
 
         $(that).after(that.$dropdownHead);
 
-        that.$dropdownHead.on('click', function() {
+        that.$dropdownHead.on('click', function(e) {
+            e.stopPropagation();
+
             // execute on show
             if(menu.options.onShow) {
                 menu.options.onShow.call(that);
