@@ -512,11 +512,13 @@
                     $menuInstance.css('top', offset.top + that.$dropdownHead.outerHeight());
                 } else {
                     if(offset.top > $(window).height() - offset.top) { // menu上方空間 > 下方空間
-                        $menuInstance.css('top', offset.top - $menuInstance.outerHeight());
                         if($menuInstance.outerHeight() > offset.top) {
+                            $menuInstance.css('top', 0);
                             $menuInstance.css('height', offset.top).jScrollPane({
                                 autoReinitialise: true
                             });
+                        } else {
+                            $menuInstance.css('top', offset.top - $menuInstance.outerHeight());
                         }
                     } else {
                         $menuInstance.css('top', offset.top + that.$dropdownHead.outerHeight());
