@@ -306,7 +306,12 @@
         }
 
         // set dropdown default value
-        that.$dropdownHead = $('<div class="RSdropdownHead">').html(menu.data[0].headText || menu.data[0].text).attr('value', menu.data[0].val).attr('title', menu.data[0].title);
+        if(menu.data.length) {
+            that.$dropdownHead = $('<div class="RSdropdownHead">').html(menu.data[0].headText || menu.data[0].text).attr('value', menu.data[0].val).attr('title', menu.data[0].title);
+        } else {
+            that.$dropdownHead = $('<div class="RSdropdownHead">').html('--');
+        }
+
         iterator(menu, function(item) {
             if(item.isDefault) {
                 if(typeof item.isDefault === 'function') {
